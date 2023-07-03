@@ -1,0 +1,295 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+---
+
+#Librerías
+
+```{r}
+#install.packages('plotly')
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+library(datos)
+library(plotly)
+library(PerformanceAnalytics)
+```
+
+```{r}
+dataset <- read.csv("Dataset.csv")
+dataset
+```
+
+##Exploracion de datos
+
+```{r}
+head(dataset)
+```
+
+```{r}
+str(dataset)
+```
+
+```{r}
+names(dataset)
+```
+
+##Tamaño del dataset (2,938 filas y 22 columnas)
+
+```{r}
+dim(dataset)
+##Seleccionar columnas
+dataset %>% select(Polio,Life_expectancy )
+```
+
+##Identificar valores faltantes
+
+```{r}
+valores_faltantes <- is.na(dataset)
+suma_valores_faltantes <- colSums(valores_faltantes)
+print(suma_valores_faltantes)
+
+```
+
+##Total de valores faltantes
+
+```{r}
+sum(is.na(dataset))
+sum(is.na(dataset$Columna))
+```
+
+##Identificar si existen errores en dataset
+
+```{r}
+anyNA(dataset)
+anyNA(dataset$Columna)
+```
+
+##Análisis descriptivo
+
+##Resumen estadístico
+
+```{r}
+summary(dataset)
+```
+
+```{r}
+boxplot(x = dataset$infant_deaths )
+```
+
+```{r}
+boxplot(x = dataset$Alcohol )
+
+```
+```{r}
+boxplot(x = dataset$percentage_expenditure )
+```
+
+
+```{r}
+boxplot(x = dataset$Hepatitis.B )
+```
+
+
+```{r}
+boxplot(x = dataset$Measles )
+
+```
+
+
+```{r}
+boxplot(x = dataset$under_five_deaths )
+
+```
+
+
+```{r}
+boxplot(x = dataset$Polio )
+```
+
+
+```{r}
+boxplot(x = dataset$Total_expenditure )
+```
+
+
+```{r}
+boxplot(x = dataset$Diphtheria )
+```
+
+
+```{r}
+boxplot(x = dataset$Income_composition_of_resources )
+```
+
+
+```{r}
+boxplot(x = dataset$Schooling )
+```
+
+
+```{r}
+ggplot(dataset, aes(Life_expectancy, infant_deaths))+
+  geom_point(alpha = 0.5) +
+  geom_smooth(method="lm", se=FALSE)
+
+
+```
+
+
+```{r}
+ggplot(dataset, aes(Life_expectancy, Alcohol))+
+  geom_point(alpha = 0.5) +
+  geom_smooth(method="lm", se=FALSE)
+```
+
+
+```{r}
+ggplot(dataset, aes(Life_expectancy, percentage_expenditure))+
+  geom_point(alpha = 0.5) +
+  geom_smooth(method="lm", se=FALSE)
+
+```
+
+
+```{r}
+
+ggplot(dataset, aes(Life_expectancy, "Hepatiti.B"))+
+  geom_point(alpha = 0.5) +
+  geom_smooth(method="lm", se=FALSE)
+
+```
+
+
+```{r}
+
+ggplot(dataset, aes(Life_expectancy, Measles))+
+  geom_point(alpha = 0.5) +
+  geom_smooth(method="lm", se=FALSE)
+```
+
+
+```{r}
+ggplot(dataset, aes(Life_expectancy, under_five_deaths))+
+  geom_point(alpha = 0.5) +
+  geom_smooth(method="lm", se=FALSE)
+
+```
+
+
+```{r}
+
+ggplot(dataset, aes(Life_expectancy, Polio))+
+  geom_point(alpha = 0.5) +
+  geom_smooth(method="lm", se=FALSE)
+```
+
+
+```{r}
+ggplot(dataset, aes(Life_expectancy, Total_expenditure))+
+  geom_point(alpha = 0.5) +
+  geom_smooth(method="lm", se=FALSE)
+
+```
+
+
+```{r}
+
+ggplot(dataset, aes(Life_expectancy, Diphtheria))+
+  geom_point(alpha = 0.5) +
+  geom_smooth(method="lm", se=FALSE)
+```
+
+
+```{r}
+
+ggplot(dataset, aes(Life_expectancy, Income_composition_of_resources))+
+  geom_point(alpha = 0.5) +
+  geom_smooth(method="lm", se=FALSE)
+```
+
+
+```{r}
+
+ggplot(dataset, aes(Life_expectancy, Schooling))+
+  geom_point(alpha = 0.5) +
+  geom_smooth(method="lm", se=FALSE)
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+```{r}
+chart.Correlation(dataset)
+
+```
+
+```{r}
+lm1 <- dataset %>%
+  lm(formula = Life_expectancy ~ Polio )
+
+lm1
+```
+
+```{r}
+dataset %>%
+  ggplot(aes(x=Life_expectancy , y=Polio ))+
+  geom_point(col="blue")+
+  geom_abline(intercept = lm1$coefficients[1], slope = lm1$coefficients[2], col="red")
+  theme_minimal()
+
+```
+
+```{r}
+lm1 <- dataset %>%
+  lm(formula = Life_expectancy ~ Measles )
+
+lm1
+```
